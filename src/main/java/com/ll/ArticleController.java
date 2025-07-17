@@ -5,26 +5,23 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ArticleController {
-    Scanner sc;
+
     List<Article> articleList = new ArrayList<>();
     Article article;
-    int lastid=0;
-
-    ArticleController(Scanner sc){
-        this.sc = sc;
-    }
+    int lastid = 0;
 
     public void write(){
         lastid++;
         System.out.print("Title: ");
-        String inputTitle = sc.nextLine();
+        String inputTitle = Container.getSc().nextLine();
         System.out.print("Content: ");
-        String inputContent = sc.nextLine();
+        String inputContent = Container.getSc().nextLine();
 
         article = new Article(lastid, inputTitle, inputContent);
         articleList.add(article);
         System.out.printf("No %d / %s / %s is saved!\n", article.getId(),article.getTitle(),article.getContent());
     }
+
     public void list(){
         int size = articleList.size();
         for(int i = size-1; i>=0 ; i--){
@@ -32,10 +29,9 @@ public class ArticleController {
             System.out.printf("No %d / %s / %s\n", article.getId(),article.getTitle(),article.getContent());
         }
     }
-    public void modify(String command){
-        String[] commandList = command.split("\\?",2);
-        String[] parms = commandList[1].split("=",2);
-        int requestId = Integer.parseInt(parms[1]);
+    public void modify(Request request){
+
+        int requestId = _getintParam(request);
 
         article = _getFinebyId(requestId);
 
@@ -43,19 +39,17 @@ public class ArticleController {
             System.out.println("Article is not founded!");
         } else {
             System.out.print("Title: ");
-            String inputTitle = sc.nextLine();
+            String inputTitle = Container.getSc().nextLine();
             System.out.print("Content: ");
-            String inputContent = sc.nextLine();
+            String inputContent = Container.getSc().nextLine();
             article.setTitle(inputTitle);
             article.setContent(inputContent);
         }
     }
 
-    public void remove(String command){
-        String[] commandList = command.split("\\?",2);
-        String[] parms = commandList[1].split("=",2);
-        int requestId = Integer.parseInt(parms[1]);
+    public void remove(Request request){
 
+        int requestId = _getintParam(request);
         article = _getFinebyId(requestId);
 
         if (article == null){
@@ -72,5 +66,15 @@ public class ArticleController {
             }
         }
         return null;
+    }
+    private int _getintParam(Request request){
+        int defualtValue = -1;
+
+        try {
+            return Integer.parseInt(request.getParams("id"));
+        } catch(NumberFormatException e) {
+            return defualtValue;
+        }
+
     }
 }

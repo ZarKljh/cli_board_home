@@ -5,32 +5,30 @@ import java.util.Scanner;
 
 public class App {
 
-    Scanner sc;
     ArticleController articleController;
-    App(Scanner sc){
-        this.sc = sc;
-        articleController = new ArticleController(sc);
+
+    App(){
+        articleController = new ArticleController();
     }
     public void run(){
-
-
 
         System.out.println("==== CLI Board App start ====");
         while(true){
             System.out.print("Command : ");
-            String command = sc.nextLine().trim();
+            String command = Container.getSc().nextLine().trim();
+            Request request = new Request(command);
 
-            if(command.equals("exit")){
+            if(request.getActionCommand().equals("exit")){
                 System.out.println("CLI Board close");
                 break;
-            } else if (command.equals("write")){
+            } else if (request.getActionCommand().equals("write")){
                 articleController.write();
-            } else if(command.equals("list")){
+            } else if(request.getActionCommand().equals("list")){
                 articleController.list();
-            } else if(command.startsWith("modify")){
-                articleController.modify(command);
-            }else if(command.startsWith("remove")){
-                articleController.remove(command);
+            } else if(request.getActionCommand().startsWith("modify")){
+                articleController.modify(request);
+            }else if(request.getActionCommand().startsWith("remove")){
+                articleController.remove(request);
             }
         }
 
