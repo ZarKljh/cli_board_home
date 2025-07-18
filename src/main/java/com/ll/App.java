@@ -8,7 +8,16 @@ public class App {
     ArticleController articleController;
 
     App(){
+        DBConnection.DB_NAME = "proj1";
+        DBConnection.DB_PORT = 3306;
+        DBConnection.DB_USER = "root";
+        DBConnection.DB_PASSWORD = "";
+
+        DBConnection DBConnection = new DBConnection();
+        DBConnection.connect();
+
         articleController = new ArticleController();
+
     }
     public void run(){
 
