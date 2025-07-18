@@ -22,11 +22,11 @@ public class ArticleController {
         System.out.print("Content: ");
         String inputContent = Container.getSc().nextLine();
 
-        article = articleService.create(inputTitle, inputContent);
+        int id = articleService.create(inputTitle, inputContent);
 
 
 
-        System.out.printf("No %d / %s / %s is saved!\n", article.getId(),article.getTitle(),article.getContent());
+        System.out.printf("No %d Article is saved!!\n", id);
     }
 
     public void list(){

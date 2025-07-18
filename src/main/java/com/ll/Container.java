@@ -14,4 +14,11 @@ public class Container {
     public static Scanner getSc(){
         return sc;
     }
+    public static DBConnection getDBConnection(){
+        if(getDBConnection() == null){
+            return  new DBConnection();
+        } return getDBConnection();
+
+
+    }
 }

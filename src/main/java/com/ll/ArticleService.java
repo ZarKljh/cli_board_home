@@ -6,19 +6,14 @@ import java.util.List;
 public class ArticleService {
     ArticleRepository articleRepository;
 
-    int lastid = 0;
-
-    //List<Article> articleList = new ArrayList<>();
-
     ArticleService(){
         articleRepository = new ArticleRepository();
     }
 
-    public Article create(String inputTitle, String inputContent){
-        lastid++;
-        //Article article = new Article();
-        Article article = articleRepository.create(lastid, inputTitle,inputContent);
-        return article;
+    public int create(String inputTitle, String inputContent){
+
+        int id  = articleRepository.create(inputTitle,inputContent);
+        return id;
     }
     public List<Article> getArticleList(){
        return articleRepository.findAll();

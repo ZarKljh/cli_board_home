@@ -1,5 +1,7 @@
 package com.ll;
 
+import java.util.Map;
+
 public class Article {
     int id;
     String title;
@@ -8,6 +10,11 @@ public class Article {
         this.id = id;
         this.title = title;
         this.content = content;
+    }
+    Article(Map<String, Object> row){
+        this.id = (int)row.get("id");
+        this.title = (String)row.get("title");
+        this.content = (String)row.get("content");
     }
     int getId(){
         return this.id;
