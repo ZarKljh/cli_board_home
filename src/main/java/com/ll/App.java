@@ -1,7 +1,5 @@
 package com.ll;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import com.ll.db.DBConnection;
 
 public class App {
 
@@ -13,8 +11,11 @@ public class App {
         DBConnection.DB_USER = "root";
         DBConnection.DB_PASSWORD = "";
 
-        DBConnection DBConnection = new DBConnection();
-        DBConnection.connect();
+
+
+       // DBConnection DBConnection = new DBConnection();
+        Container.getDBConnection().connect();
+        //DBConnection.connect();
 
         articleController = new ArticleController();
 
