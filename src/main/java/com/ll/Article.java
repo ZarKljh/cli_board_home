@@ -13,7 +13,7 @@ public class Article {
     }
     Article(Map<String, Object> row){
         this.id = (int)row.get("id");
-        this.title = (String)row.get("title");
+        this.title = (String)row.get("subject");
         this.content = (String)row.get("content");
     }
     int getId(){
