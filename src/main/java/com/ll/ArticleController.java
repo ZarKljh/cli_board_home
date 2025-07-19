@@ -1,8 +1,9 @@
 package com.ll;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class ArticleController {
 
@@ -34,7 +35,8 @@ public class ArticleController {
         int size = articleList.size();
         for(int i = size-1; i>=0 ; i--){
             article = articleList.get(i);
-            System.out.printf("No %d / %s / %s\n", article.getId(),article.getTitle(),article.getContent());
+            String formattedNow = dateFormat(article.getRegDate());
+            System.out.printf("No %d / %s / %s / %s\n", article.getId(),article.getTitle(),article.getContent(),article, formattedNow);
         }
     }
     public void modify(Request request){
@@ -75,6 +77,12 @@ public class ArticleController {
         } catch(NumberFormatException e) {
             return defualtValue;
         }
+    }
+    private String dateFormat(LocalDateTime regDate){
+        //SimpleDateFormat formatRegDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = regDate.format(formatter);
 
+        return formattedNow;
     }
 }
