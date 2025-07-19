@@ -5,7 +5,7 @@ import com.ll.db.DBConnection;
 import java.util.Scanner;
 
 public class Container {
-    private static  Scanner sc;
+    private static Scanner sc;
     private static DBConnection dbConnection;
 
     public static void init(){

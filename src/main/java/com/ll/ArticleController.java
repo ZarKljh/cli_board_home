@@ -17,11 +17,12 @@ public class ArticleController {
 
 
     public void write(){
-        //lastid++;
+
         System.out.print("Title: ");
         String inputTitle = Container.getSc().nextLine();
         System.out.print("Content: ");
         String inputContent = Container.getSc().nextLine();
+
 
         int id = articleService.create(inputTitle, inputContent);
 
@@ -36,7 +37,7 @@ public class ArticleController {
         for(int i = size-1; i>=0 ; i--){
             article = articleList.get(i);
             String formattedNow = dateFormat(article.getRegDate());
-            System.out.printf("No %d / %s / %s / %s\n", article.getId(),article.getTitle(),article.getContent(),article, formattedNow);
+            System.out.printf("No %d / %s / %s / %s\n", article.getId(),article.getTitle(),article.getContent(),formattedNow);
         }
     }
     public void modify(Request request){

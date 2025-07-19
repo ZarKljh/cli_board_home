@@ -8,7 +8,7 @@ public class ArticleRepository {
 
     public int create(String inputTitle, String inputContent){
 
-        String sql = String.format("insert into article set subject='%s', content='%s'", inputTitle, inputContent);
+        String sql = String.format("insert into article set title='%s', content='%s'", inputTitle, inputContent);
         int id = Container.getDBConnection().insert(sql);
 
         return id;
@@ -26,7 +26,7 @@ public class ArticleRepository {
     }
 
     public void modify(Article article, String inputTitle, String inputContent){
-        String sql = String.format("update article set subject='%s', content='%s' where id='%d'", inputTitle, inputContent, article.getId());
+        String sql = String.format("update article set title='%s', content='%s' where id='%d'", inputTitle, inputContent, article.getId());
         Container.getDBConnection().update(sql);
     }
     public void remove(Article article){

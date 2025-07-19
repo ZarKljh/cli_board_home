@@ -1,9 +1,12 @@
 package com.ll;
+import com.ll.Member.MemberController;
+import com.ll.Member.Session;
 import com.ll.db.DBConnection;
 
 public class App {
 
     ArticleController articleController;
+    MemberController memberController;
 
     App(){
         DBConnection.DB_NAME = "proj1";
@@ -11,18 +14,26 @@ public class App {
         DBConnection.DB_USER = "root";
         DBConnection.DB_PASSWORD = "";
 
-
-
-       // DBConnection DBConnection = new DBConnection();
         Container.getDBConnection().connect();
-        //DBConnection.connect();
 
         articleController = new ArticleController();
+        memberController = new MemberController();
 
     }
     public void run(){
 
         System.out.println("==== CLI Board App start ====");
+
+        while (!Session.isLoggedIn()) {
+            System.out.println("[로그인이 필요합니다]");
+            memberController.login();
+
+            if (!Session.isLoggedIn()) {
+                System.out.println("로그인 실패. 다시 시도해주세요.\n");
+            }
+        }
+
+
         while(true){
             System.out.print("Command : ");
             String command = Container.getSc().nextLine().trim();
