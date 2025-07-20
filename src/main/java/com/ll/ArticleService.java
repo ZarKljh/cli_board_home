@@ -10,9 +10,9 @@ public class ArticleService {
         articleRepository = new ArticleRepository();
     }
 
-    public int create(String inputTitle, String inputContent){
+    public int create(String inputTitle, String inputContent, String memberUserId){
 
-        int id  = articleRepository.create(inputTitle,inputContent);
+        int id  = articleRepository.create(inputTitle,inputContent, memberUserId);
         return id;
     }
     public List<Article> getArticleList(){

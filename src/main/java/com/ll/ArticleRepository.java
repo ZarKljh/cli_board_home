@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class ArticleRepository {
 
-    public int create(String inputTitle, String inputContent){
+    public int create(String inputTitle, String inputContent, String memberUserId){
 
-        String sql = String.format("insert into article set title='%s', content='%s'", inputTitle, inputContent);
+        String sql = String.format("insert into article set title='%s', content='%s', userId='%s', regDate = now()", inputTitle, inputContent, memberUserId);
         int id = Container.getDBConnection().insert(sql);
 
         return id;

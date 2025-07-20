@@ -7,7 +7,7 @@ public class App {
 
     ArticleController articleController;
     MemberController memberController;
-
+    String memberUserId;
     App(){
         DBConnection.DB_NAME = "proj1";
         DBConnection.DB_PORT = 3306;
@@ -24,17 +24,34 @@ public class App {
 
         System.out.println("==== CLI Board App start ====");
 
-        while (!Session.isLoggedIn()) {
-            System.out.println("[로그인이 필요합니다]");
-            memberController.login();
 
-            if (!Session.isLoggedIn()) {
-                System.out.println("로그인 실패. 다시 시도해주세요.\n");
+        // !Session.isLoggedIn() --> 로그아웃상태라면?? 이라는 뜻
+        while (true) {
+            System.out.println("============ Choice MENU ==========");
+            System.out.println("======== login signin exit ========");
+            System.out.print("Command : ");
+            String command = Container.getSc().nextLine().trim();
+            Request request = new Request(command);
+
+            if(request.getActionCommand().equals("login")){
+                System.out.println("Login Please!");
+                memberController.login();
+                memberUserId = memberController.getMemberUserId();
+                break;
+            } else if (request.getActionCommand().equals("signin")){
+                //memberContrtoller.signin();
+                //memberContrtoller.login();
+            } else if (request.getActionCommand().equals("exit")) {
+                System.out.println("CLI Board close");
+                break;
             }
         }
 
+        while(Session.isLoggedIn()){
+            System.out.println("============ Choice MENU ==========");
+            System.out.println("======== list write modify ========");
+            System.out.println("============ remove exit ==========");
 
-        while(true){
             System.out.print("Command : ");
             String command = Container.getSc().nextLine().trim();
             Request request = new Request(command);
@@ -43,13 +60,13 @@ public class App {
                 System.out.println("CLI Board close");
                 break;
             } else if (request.getActionCommand().equals("write")){
-                articleController.write();
+                articleController.write(memberUserId);
             } else if(request.getActionCommand().equals("list")){
                 articleController.list();
             } else if(request.getActionCommand().startsWith("modify")){
-                articleController.modify(request);
+                articleController.modify(request,memberUserId);
             }else if(request.getActionCommand().startsWith("remove")){
-                articleController.remove(request);
+                articleController.remove(request,memberUserId);
             }
         }
 

@@ -13,5 +13,6 @@ public class MemberService {
     static List<Member> list(String userId, String password){
         return memberRespostiry.findAll(userId, password);
     }
+
 }
 

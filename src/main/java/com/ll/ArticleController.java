@@ -1,5 +1,7 @@
 package com.ll;
 
+import com.ll.Member.MemberController;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,46 +10,50 @@ import java.util.*;
 public class ArticleController {
 
     ArticleService articleService;
+    MemberController memberController;
 
     Article article;
 
     ArticleController(){
+
         articleService = new ArticleService();
+        memberController = new MemberController();
     }
 
 
-    public void write(){
+    public void write(String memberUserId){
 
         System.out.print("Title: ");
         String inputTitle = Container.getSc().nextLine();
         System.out.print("Content: ");
         String inputContent = Container.getSc().nextLine();
 
-
-        int id = articleService.create(inputTitle, inputContent);
-
-
+        System.out.println("memberUserId :" + memberUserId);
+        int id = articleService.create(inputTitle, inputContent, memberUserId);
 
         System.out.printf("No %d Article is saved!!\n", id);
     }
 
     public void list(){
+
         List<Article> articleList = articleService.getArticleList();
         int size = articleList.size();
         for(int i = size-1; i>=0 ; i--){
             article = articleList.get(i);
             String formattedNow = dateFormat(article.getRegDate());
-            System.out.printf("No %d / %s / %s / %s\n", article.getId(),article.getTitle(),article.getContent(),formattedNow);
+            System.out.printf("No %d / %s / %s / %s / %s\n", article.getId(),article.getTitle(),article.getContent(), article.getUserId(), formattedNow);
         }
     }
-    public void modify(Request request){
+    public void modify(Request request, String memberUserId) {
 
         int requestId = _getintParam(request);
 
         article = articleService._getFinebyId(requestId);
 
-        if(article == null ) {
+        if (article == null) {
             System.out.println("Article is not founded!");
+        } else if (!article.getUserId().equals(memberUserId) && article != null){
+            System.out.println("This Article is not yours!");
         } else {
             System.out.print("Title: ");
             String inputTitle = Container.getSc().nextLine();
@@ -57,13 +63,15 @@ public class ArticleController {
         }
     }
 
-    public void remove(Request request){
+    public void remove(Request request, String memberUserId) {
 
         int requestId = _getintParam(request);
         article = articleService._getFinebyId(requestId);
 
-        if (article == null){
+        if (article == null) {
             System.out.println("Article is not founded!");
+        } else if (!article.getUserId().equals(memberUserId) && article != null){
+            System.out.println("This Article is not yours!");
         }else{
             articleService.remove(article);
             System.out.printf("No%d Article is removed!!\n",requestId);
@@ -72,7 +80,6 @@ public class ArticleController {
 
     private int _getintParam(Request request){
         int defualtValue = -1;
-
         try {
             return Integer.parseInt(request.getParams("id"));
         } catch(NumberFormatException e) {

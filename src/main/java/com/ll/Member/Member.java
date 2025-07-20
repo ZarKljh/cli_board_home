@@ -15,6 +15,7 @@ public class Member {
         this.password = (String)row.get("password");
         this.regDate = (LocalDateTime)row.get("regDate");
     }
-
-
+    String getUserId(){
+        return this.userId;
+    }
 }
