@@ -12,7 +12,9 @@ public class Request {
         String[] commandList = command.split("\\?",2);
         actionCommand = commandList[0];
 
-        if(commandList.length == 1) return;
+        if(commandList.length == 1){
+            return;
+        }
 
         String[] parms = commandList[1].split("=", 2);
 

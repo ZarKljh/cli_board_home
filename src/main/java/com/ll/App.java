@@ -39,7 +39,8 @@ public class App {
                 memberUserId = memberController.getMemberUserId();
                 break;
             } else if (request.getActionCommand().equals("signin")){
-                //memberContrtoller.signin();
+                System.out.println("Signin Please!");
+                memberController.signin();
                 //memberContrtoller.login();
             } else if (request.getActionCommand().equals("exit")) {
                 System.out.println("CLI Board close");

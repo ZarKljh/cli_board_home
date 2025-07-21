@@ -52,6 +52,7 @@ public class ArticleController {
 
         if (article == null) {
             System.out.println("Article is not founded!");
+            System.out.println("Please! Check article Id!");
         } else if (!article.getUserId().equals(memberUserId) && article != null){
             System.out.println("This Article is not yours!");
         } else {
@@ -70,6 +71,7 @@ public class ArticleController {
 
         if (article == null) {
             System.out.println("Article is not founded!");
+            System.out.println("Please! Check article Id!");
         } else if (!article.getUserId().equals(memberUserId) && article != null){
             System.out.println("This Article is not yours!");
         }else{

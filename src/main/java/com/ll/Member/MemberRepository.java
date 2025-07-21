@@ -19,4 +19,8 @@ public class MemberRepository {
         }
         return memberList;
     }
+    public void create(String userId, String password){
+        String sql = String.format("Insert into members set userId='%s', password='%s', regDate=now()",userId,password);
+        Container.getDBConnection().insert(sql);
+    }
 }

@@ -13,6 +13,8 @@ public class MemberService {
     static List<Member> list(String userId, String password){
         return memberRespostiry.findAll(userId, password);
     }
-
+    static void create (String userId, String password){
+        memberRespostiry.create(userId, password);
+    }
 }
 

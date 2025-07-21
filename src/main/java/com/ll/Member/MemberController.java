@@ -32,7 +32,49 @@ public class MemberController {
             System.out.println("Login Failed! Check your Id&PW Please!!");
         }
     }
+    public void signin(){
+        if(Session.isLoggedIn()){
+            System.out.println("Before Signin, Logout first please!");
+            return;
+        }
+        String userId = textCheck(Container.getSc(), "ID");
+        String password = textCheck(Container.getSc(), "PASSWORD");
+
+        if (MemberService.list(userId,password).isEmpty()) {
+            MemberService.create(userId, password);
+            System.out.println("Please Login by userId!");
+        } else {
+            System.out.println("Login Failed! Check your Id&PW Please!!");
+        }
+
+//        while(true){
+//            System.out.print("ID : ");
+//            userId = Container.getSc().nextLine();
+//            if(userId.equals(Container.getSc().nextLine())){
+//                break;
+//            }
+//        }
+//        while(true){
+//            System.out.print("PASSWORD : ");
+//            password = Container.getSc().nextLine();
+//            if(password.equals(Container.getSc().nextLine())){
+//                break;
+//            }
+//        }
+    }
     public String getMemberUserId(){
         return this.memberUserId;
+    }
+    public String textCheck(Scanner sc, String col){
+        String value;
+        while(true){
+            System.out.printf("%s : ", col);
+            value = sc.nextLine();
+            System.out.printf("Please Input %s one more please : ", col);
+            if(value.equals(sc.nextLine())){
+                break;
+            }
+        }
+        return value;
     }
 }
