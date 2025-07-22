@@ -66,12 +66,14 @@ public class MemberController {
         return this.memberUserId;
     }
     public String textCheck(Scanner sc, String col){
-        String value;
-        while(true){
+        String value = "";
+        boolean corract = true;
+        while(corract){
             System.out.printf("%s : ", col);
             value = sc.nextLine();
             System.out.printf("Please Input %s one more please : ", col);
             if(value.equals(sc.nextLine())){
+                corract = false;
                 break;
             }
         }
